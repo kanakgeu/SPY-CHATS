@@ -2,9 +2,7 @@ from steganography.steganography import Steganography
 spy_list={}
 status_history={}
 status=['available','busy','online']
-count=0
-
-
+flag=0
 def spy_status(name):
     print spy_list[name]['status']
     status_option=int(raw_input("1.update old status \n2.Add new status\n3.Choose from pre-defined status"))
@@ -42,8 +40,6 @@ def spy_status(name):
     else:
         print "Invalid option!"
     print spy_list[name]['status']
-
-
 def spy_friend(name):
     f_name = raw_input("Enter your friend name:")
     if len(f_name)!=0:
@@ -53,15 +49,13 @@ def spy_friend(name):
             if f_rating < spy_list[name]['rating']:
                 print "This can not added in your friendlist. "
             else:
-                spy_list[name]['friends'].update({f_name:{"chat":{}}})
+                spy_list[name]['friends'].update({f_name:{'f_age':f_age,'f_rating':f_rating,"chat":{}}})
                 print "your friend added successfully in your list!"
         else:
             print "You cannot be added.\n"
     else:
         print "Invalid name!"
     print len(spy_list[name]['friends'])
-
-
 def select_a_friend(name):
     friend_list = len(spy_list[name]['friends'].keys())
     if friend_list == 0:
@@ -78,9 +72,8 @@ def select_a_friend(name):
             return ("null")
         else:
             return (position)
-
 def send_a_message(name):
-    global count
+    global flag
     position = select_a_friend(name)
     if position == 'null':
         return (0)
@@ -98,18 +91,15 @@ def send_a_message(name):
         text = raw_input("Enter the TEXT to encode: ")
         from datetime import datetime
         date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        count = count + 1
-        spy_list[name]['friends'][f_name]['chat'].update({count: {"secret_message": text, "time": date,"boolean": True}})
+        flag = flag + 1
+        spy_list[name]['friends'][f_name]['chat'].update({flag: {"secret_message": text, "time": date,"boolean": True}})
         print "Come down..................................."
         q= text.strip().split(" ")
         Steganography.encode(path, overall_path, text)
         print "\nMessage has been encoded and sent to %s.\n" % (
             str(spy_list[name]['friends'].keys()[position]))
-
-
-
 def read_a_message(name):
-    global count
+    global flag
     position = select_a_friend(name)
     if position == "null":
         return ()
@@ -128,9 +118,6 @@ def read_a_message(name):
             print "Image has no secret message"
         else:
             print "\nYour secret text is: " + secret_text
-
-
-
 def chat_read(name):
     position = select_a_friend(name)
     if position == "null":
@@ -138,7 +125,6 @@ def chat_read(name):
     f_name = spy_list[name]["friends"].keys()[position]
     print "Chat history:\n"
     print spy_list[name]["friends"][f_name]["chat"]
-
 user_choice=int(raw_input("Do you want to continue as:\n1. Default user.\n2. New user."))
 if user_choice==1:
     import spy_details
@@ -146,7 +132,6 @@ if user_choice==1:
     name = spy_details.spy_list.keys()[0]
     status_history.update(spy_details.status_history)
     status_history[name].append(spy_list[name]["status"])
-
 elif user_choice==2:
     name=raw_input("Enter your name: ")
     if len(name) ==0:
