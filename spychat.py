@@ -11,11 +11,15 @@ def spy_status(name):
     if status_option==1:
         print "your current status is: "+spy_list[name]['status']
         for i in range(len(status_history[name])):
-            print str(i+1)+". "+str(status_history[name][i])
-        status1=int(raw_input("choose from above options: "))
-        status1=status1-1
-        spy_list[name]['status']=status_history[name][status1]
-        print "Your status updated successfully!"
+             print str(i+1)+". "+str(status_history[name][i])
+        select1=int(raw_input("Choose option from above: "))
+        select1=select1-1
+        if select1+1>len(status_history[name]):
+            print "Wrong input! Plz enter right ooption."
+            return
+        else:
+            spy_list[name]['status']=status_history[name][select1]
+            print "Your status updated successfully!"
     elif  status_option==2:
         status2=raw_input("Enter your new status:")
         spy_list[name].update({'status':status2})
@@ -25,11 +29,16 @@ def spy_status(name):
     elif status_option==3:
         for i in range(len(status)):
             print str(i+1)+". "+str(status[i])
-        s_choice=int(raw_input("enter the choice: "))
-        s_choice=s_choice-1
-        spy_list[name]['status']=status[s_choice]
-        if status[s_choice] not in status_history[name]:
-            status_history[name].append(status[s_choice])
+        select1=int(raw_input("Enter the choice: "))
+        select1=select1-1
+        if select1+1>len(status_history[name]):
+            print "Wrong input! Plz enter right option."
+            return
+        else:
+            spy_list[name]['status']=status[select1]
+            if status[select1] not in status_history[name]:
+                status_history[name].append(status[select1])
+            print "Your status updated successfully!"
     else:
         print "Invalid option!"
     print spy_list[name]['status']
@@ -154,7 +163,7 @@ elif user_choice==2:
         if age>12 and age<50:
             rating=float(raw_input("Give the rating to spy:"))
             online_status = raw_input("Enter your status:")
-            spy_list.update({name:{"salutation":salutation, "age":age, "rating":rating ,"status":online_status, "friends":{"chat":{}}}})
+            spy_list.update({name:{"salutation":salutation, "age":age, "rating":rating ,"status":online_status, "friends":{}}})
             print "you added to spychat successfully!"
             status_history.update({name:[online_status]})
         else:
