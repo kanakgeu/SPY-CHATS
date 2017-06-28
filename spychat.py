@@ -83,10 +83,10 @@ def send_a_message(name):
         f_name = spy_list[name]['friends'].keys()[position]
         from steganography.steganography import Steganography
         path_name = "C:\Users\Kanak Goel\Desktop"
-        img_name = raw_input("What is the image name(Type along with the extension)?: ")
+        img_name = raw_input("What is the image name?: ")
         path = path_name +"\\" + img_name
         print "your path with specified image name is: " + path
-        d_img_name = raw_input("What name should be the output file?(Type along with extension): ")
+        d_img_name = raw_input("What name should be the output file?: ")
         d_path = "C:\Users\Kanak Goel\Desktop"
         overall_path = d_path + "\\" + d_img_name
         print overall_path
@@ -109,7 +109,7 @@ def read_a_message(name):
         from steganography.steganography import Steganography
         f_name = spy_list[name]['friends'].keys()[position]
         print "Friend %s selected\n" % (f_name)
-        d_img_name = raw_input("What is the name of the output file you want to decode?(Type along with extension): ")
+        d_img_name = raw_input("What is the name of the output file you want to decode?: ")
         d_path = "C:\Users\Kanak Goel\Desktop"
         overall_path = d_path+"\\"+ d_img_name
         from datetime import datetime
