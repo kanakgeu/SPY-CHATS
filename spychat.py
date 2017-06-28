@@ -53,8 +53,10 @@ def spy_friend(name):
                 print "your friend added successfully in your list!"
         else:
             print "You cannot be added.\n"
+            return()
     else:
         print "Invalid name!"
+        return()
     print len(spy_list[name]['friends'])
 def select_a_friend(name):
     friend_list = len(spy_list[name]['friends'].keys())
